@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                echo 'Cloning source code...'
+                git branch: 'main',
+                    url: 'https://github.com/your-username/your-repository.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building application...'
+                sh 'mkdir -p build'
+                sh 'echo "Build Successful" > build/output.txt'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+                sh 'echo "All Tests Passed"'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application...'
+                sh 'echo "Application Deployed Successfully"'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
